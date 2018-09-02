@@ -1,0 +1,47 @@
+<h1>Eat-Da-Sequel-Burger!</h1>
+
+<main>
+  <div class="container">
+    <div class="row">
+      <!-- Column for available burgers and customer name -->
+      <div class="col s8">
+        {{#each burgers}} {{#unless this.devoured}}
+        <div class="row">
+          <div class="burgerName">
+            <div class='burgerAvailable'>{{this.name}}</div>
+          </div>
+
+          <div class="customerEats">
+            <form action="/burgers/{{this.id}}?_method=PUT" method="POST">
+              <input type="text" id="customerName" name="customerName" placeholder="Your Name">
+              <button type="submit" class="eatBurgerButton fa fa-cutlery fa-2x" aria-hidden="true"></button>
+            </form>
+          </div>
+        </div>
+        {{/unless}} {{/each}}
+      </div> <!-- End col s8 -->
+
+      <!-- Column for burgers that are no longer available -->
+      <div class="col s4">
+        {{#each burgers}} {{#if this.devoured}}
+        <div class='burgerEaten'>
+          <div>
+            {{this.name}} (eaten by {{this.Customer.name}})
+          </div>
+        </div>
+        {{/if}} {{/each}}
+      </div> <!-- End col s4 -->
+    </div> <!-- End row -->
+  </div> <!-- End container -->
+</main>
+
+<h2>Add A Burger Option</h2>
+
+<div class="row">
+  <div class="col s12">
+    <form action="/burgers" method="POST">
+      <input type="text" id="name" name="name" placeholder="Uber Delicious Burger">
+      <button type="submit" class="addBurgerButton">Add The Burger</button>
+    </form>
+  </div>
+</div>
